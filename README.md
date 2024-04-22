@@ -1,7 +1,6 @@
 # Abyss 
 
 
-Authors 
+Author 
 * Riley Geddes
-* Levi Dawit 
-* Carter Bassler
+
