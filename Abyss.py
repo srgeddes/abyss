@@ -653,7 +653,6 @@ restart_text = uvage.from_text(640, 600, 'PRESS R TO RESTART', 50, 'red', True)
 
 def game_over():
     global win
-    # TODO : Make black hole bounce around game over screen
     if game_over_status:
         camera.center = [640, 360]
         # Movement
