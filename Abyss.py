@@ -1,18 +1,14 @@
 import uvage
 import random
 
-
 camera = uvage.Camera(1280, 720, True)
 
-
 # -------------------------------------------STATUS--------------------------------------------------------------------#
-home_screen_status = True
+home_screen_status = False
 level_1_status = False
 question_status = False
-game_over_status = False
+game_over_status = True
 last_chance_status = False
-
-
 
 # -------------------------------------------HOME SCREEN ASSETS--------------------------------------------------------#
 home_screen_count = 0
@@ -25,7 +21,6 @@ home_screen_assets = [home_screen_background, home_screen_title, home_screen_sta
 home_screen_title.scale_by(.8)
 home_screen_start.scale_by(.3)
 home_screen_menu_star.scale_by(.3)
-
 
 
 # -------------------------------------------HOME SCREEN FUNCTIONS-----------------------------------------------------#
@@ -42,26 +37,16 @@ def home_screen():
         for i in home_screen_assets:
             camera.draw(i)
 
-        # TODO : Make black hole bounce around homescreen
         black_hole.rotate(5)
-
-        # if black_hole.y == 200 or black_hole.y == 720:
-        #     black_hole.yspeed *= -1
-        # elif black_hole.x == camera.x + 200:
-        #     black_hole.xspeed = -2
-        # elif black_hole.x == camera.x:
-        #     black_hole.xspeed = 2
 
         if black_hole.y <= 150 or black_hole.y >= camera.height:
             black_hole.yspeed *= -1
         if black_hole.x <= 150 + home_screen_count or black_hole.x >= camera.width + home_screen_count:
             black_hole.xspeed *= -1
 
-
         black_hole.move_speed()
         camera.draw(black_hole)
         # black_hole.center = [640 + home_screen_count, 200]
-
 
         # Movement (Scrolling)
         camera.move(.4, 0)
@@ -74,20 +59,21 @@ def home_screen():
 
         camera.display()
 
+
 def home_screen_controller():
     global home_screen_status, level_1_status
 
     if uvage.is_pressing("return"):
         home_screen_status = False
         camera.center = [640, 360]
-        black_hole.center = [640, 900]
+        black_hole.center = [640, 1100]
+        generate_questions()
         level_1_status = True
-
 
 
 # -------------------------------------------LEVEL ASSETS-----------------------------------------------------#
 
-#Background
+# Background
 background = []
 
 level_1_background = uvage.from_image(640, 450, 'assets/level1/spacebackground.jpg')
@@ -103,7 +89,7 @@ level_1_background3 = uvage.from_image(640, -1800, 'assets/level1/spacebackgroun
 level_1_background3.size = [1280, 900]
 background.append(level_1_background3)
 level_1_background4 = uvage.from_image(640, -2700, 'assets/level1/spacebackground.jpg')
-level_1_background4.size= [1280, 900]
+level_1_background4.size = [1280, 900]
 background.append(level_1_background4)
 level_1_background5 = uvage.from_image(640, -3600, 'assets/level1/spacebackground.jpg')
 level_1_background5.size = [1280, 900]
@@ -123,22 +109,21 @@ background.append(level_1_background9)
 
 player_images = uvage.load_sprite_sheet('assets/level1/spr_trooper_run_strip12_resized.png', rows=1, columns=12)
 
-#Rocket
+# Rocket
 rocket = uvage.from_image(600, -6350, "assets/level1/rocketship.png")
 rocket.size = [75, 100]
 
-#Player
+# Player
 player = uvage.from_image(600, 500, player_images[-1])
 
-#Black Hole
+# Black Hole
 
 black_hole = uvage.from_image(500, 500, 'assets/level1/black_hole.png')
 black_hole.scale_by(.15)
 black_hole.yspeed = 3
 black_hole.xspeed = 3
 
-
-#Score
+# Score
 score_number = 0
 final_score = 0
 
@@ -146,7 +131,6 @@ floor = uvage.from_image(700, 600, "assets/level1/platforms.png")
 floor.size = [1400, 20]
 end = uvage.from_image(700, -6300, "assets/level1/platforms.png")
 end.size = [1400, 20]
-
 
 level_1_frame = 0
 facing_right = True
@@ -171,7 +155,6 @@ left_wall = uvage.from_color(0, 500, "black", .1, 100000)
 
 yspeed = 1.8
 
-
 platforms = []
 moving_platforms = []
 moving_platforms1 = []
@@ -179,6 +162,8 @@ moving_platforms2 = []
 moving_platforms3 = []
 
 level_1_ending_barrier = uvage.from_color(635, -8200, 'red', 5, 5)
+
+last_chance_text = uvage.from_text(0, 0, "LAST CHANCE", 40, 'red', True)
 
 one = uvage.from_image(400, 500, "assets/level1/platforms.png")
 platforms.append(one)
@@ -329,9 +314,6 @@ question_answers_dict = {
 thing = ["B", "B", "A", "D", "B", "B", "D", "C", "A", "C", "C", "C", "C", "C", "B", "A", "D", "A"]
 list_of_possible_answers = ["A", "B", "C", "D"]
 
-
-questions_dict = {}
-
 questions_dict["1"] = uvage.from_image(0, 0, 'assets/level1/questions/questions_1.jpeg')
 questions_dict["2"] = uvage.from_image(0, 0, 'assets/level1/questions/question_2.png')
 questions_dict["3"] = uvage.from_image(0, 0, 'assets/level1/questions/question_3.png')
@@ -351,9 +333,10 @@ questions_dict["16"] = uvage.from_image(0, 0, 'assets/level1/questions/question_
 questions_dict["17"] = uvage.from_image(0, 0, 'assets/level1/questions/question_17.png')
 questions_dict["18"] = uvage.from_image(0, 0, 'assets/level1/questions/question_18.png')
 
-
-# get 10 random
-questions_dict = dict(random.sample(list(questions_dict.items()), 10))
+def generate_questions():
+    global questions_dict
+    # get 10 random
+    questions_dict = dict(random.sample(list(questions_dict.items()), 10))
 
 for question in questions_dict.values():
     question.scale_by(.6)
@@ -364,23 +347,22 @@ star_collectable_3 = uvage.from_image(1100, -1700, 'assets/level1/star_collectab
 star_collectable_4 = uvage.from_image(700, -3750, 'assets/level1/star_collectable.png')
 star_collectable_5 = uvage.from_image(600, -6150, 'assets/level1/star_collectable.png')
 
-star_collectable_list = [star_collectable_1, star_collectable_2, star_collectable_3, star_collectable_4, star_collectable_5]
+star_collectable_list = [star_collectable_1, star_collectable_2, star_collectable_3, star_collectable_4,
+                         star_collectable_5]
 for star_collectable in star_collectable_list:
     star_collectable.scale_by(.2)
     star_collectable.speedy = 1.8
 star_count = 0
 
-
-
-
-
 # TODO : Make the star bounce
 
 
-#-------------------------------------------QUESTION SCREEN----------------------------------------------------------#
+# -------------------------------------------QUESTION SCREEN----------------------------------------------------------#
 question_screen_count = 0
+
+
 def question_handler():
-    global question_status, game_over_status, last_chance_status, level_1_status, question_screen_count, questions_list
+    global question_status, game_over_status, last_chance_status, level_1_status, question_screen_count, score_number
 
     if question_status:
         question_screen_count += .4
@@ -397,21 +379,27 @@ def question_handler():
         possible_answer_list.pop(possible_answer_list.index(answer.lower()))
         if uvage.is_pressing(answer.lower()):
             del questions_dict[question_key]
-            black_hole.move(0, 500)
+            black_hole.move(0, 1000)
             question_status = False
+            score_number += 1
+            black_hole.center = [camera.x, camera.y + 500]
             level_1_status = True
-        elif (uvage.is_pressing(possible_answer_list[0]) or uvage.is_pressing(possible_answer_list[1]) or uvage.is_pressing(possible_answer_list[2])) and (last_chance_status):
+        elif (uvage.is_pressing(possible_answer_list[0]) or uvage.is_pressing(
+                possible_answer_list[1]) or uvage.is_pressing(possible_answer_list[2])) and last_chance_status:
             question_status = False
             level_1_status = False
+            black_hole.center = [640, 100]
             game_over_status = True
-        elif (uvage.is_pressing(possible_answer_list[0]) or uvage.is_pressing(possible_answer_list[1]) or uvage.is_pressing(possible_answer_list[2])) and (not last_chance_status):
+        elif (uvage.is_pressing(possible_answer_list[0]) or uvage.is_pressing(
+                possible_answer_list[1]) or uvage.is_pressing(possible_answer_list[2])) and (not last_chance_status):
             question_status = False
             black_hole.move(0, 500)
+            black_hole.center = [camera.x, camera.y + 500]
             last_chance_status = True
             level_1_status = True
 
 
-#-------------------------------------------LEVEL 1 FUNCTIONS----------------------------------------------------------#
+# -------------------------------------------LEVEL 1 FUNCTIONS---------------------------------------------------------#
 def star_handler():
     global question_status, star_count
     for star_collectable in star_collectable_list:
@@ -422,21 +410,19 @@ def star_handler():
             star_collectable.move(0, 100000)
             question_status = True
 
+
 def black_hole_handler():
     global level_1_status, last_chance_status, question_status
     camera.draw(black_hole)
     black_hole.rotate(5)
-    if score_number <= 3:
-        black_hole.yspeed = 1.8
-        black_hole.xspeed = 0
-    else:
-        black_hole.speedy = .5
-        black_hole.xspeed = 0
+    black_hole.yspeed = .3
+    black_hole.xspeed = 0
     black_hole.move_speed()
     if player.y + 200 >= black_hole.y >= player.y:
         level_1_status = False
         last_chance_status = True
         question_status = True
+
 
 def level_1():
     global level_1_frame, facing_left, facing_right, canjump, xspeed, yspeed, gameover, goingright1, goingright, goingright2, \
@@ -444,12 +430,11 @@ def level_1():
 
     camera.y = player.y
 
-
     if level_1_status and not question_status:
 
         camera.clear('black')
         camera.draw(level_1_ending_barrier)
-        #Background
+        # Background
         for each in background:
             camera.draw(each)
             each.speedy = yspeed
@@ -605,10 +590,6 @@ def level_1():
                 player.yspeed = -20
                 jumping = True
 
-
-
-
-
         if jumping:
             player.speedx = 0
 
@@ -616,6 +597,7 @@ def level_1():
         if player.touches(rocket) and star_count == 5:
             win = True
         elif player.touches(rocket) and star_count < 5:
+            black_hole.center = [640, 100]
             game_over_status = True
         if win:
             player.x = rocket.x
@@ -626,68 +608,111 @@ def level_1():
         # black hole
         black_hole_handler()
 
-
         # Star
         star_handler()
 
         # Question
-
-
 
         # Win
         if level_1_background9.top_touches(rocket):
             final_score = score_number
             level_1_status = False
             camera.clear('black')
+            black_hole.center = [640, 100]
             game_over_status = True
 
-
-
         # Score
-        score_number += .016
+        # score_number += .016
         score = uvage.from_text(1230, 50, str(int(score_number)), 40, 'red')
         score.move(0, player.y - 350)
         camera.draw(score)
 
+        if last_chance_status and not question_status:
+            last_chance_text.center = [1100, camera.y - 350]
+            camera.draw(last_chance_text)
+
         camera.display()
 
+    # Question s
     if question_status:
-
         question_handler()
         camera.display()
 
-#-------------------------------------------GAME OVER ASSETS AND FUNCTION----------------------------------------------#
+
+# -------------------------------------------GAME OVER ASSETS AND FUNCTION----------------------------------------------#
 
 score_number_2 = 0
 game_over_background = uvage.from_image(620, 200, 'assets/home_screen/big_stars.png')
 game_over_title = uvage.from_image(640, 360, 'assets/home_screen/title.png')
 game_over_title.scale_by(.8)
 game_over_barrier = uvage.from_color(640, 100, 'black', .01, .01)
+win_text = uvage.from_text(640, 600, 'YOU WON', 50, 'red', True)
+restart_text = uvage.from_text(640, 600, 'PRESS R TO RESTART', 50, 'red', True)
+
 
 
 def game_over():
+    global win
+    # TODO : Make black hole bounce around game over screen
     if game_over_status:
-        camera.center = [635, 360]
+        camera.center = [640, 360]
         # Movement
         if not game_over_title.top_touches(game_over_barrier):
             game_over_title.yspeed = -.25
             game_over_title.move_speed()
 
         camera.draw(game_over_background)
-        camera.draw(uvage.from_text(100, 100, 'Score: ' + str(int(score_number_2)), 60, 'red'))
         camera.draw(game_over_barrier)
         camera.draw(game_over_title)
+        if win:
+            camera.draw(win_text)
+        # camera.draw(restart_text)
 
-        black_hole.center = [640, 100]
+        #black_hole
         black_hole.rotate(5)
+        if black_hole.y <= 125 or black_hole.y >= camera.height - 125:
+            black_hole.yspeed *= -1
+        if black_hole.x <= 125 or black_hole.x >= camera.width - 125:
+            black_hole.xspeed *= -1
+
+        black_hole.move_speed()
         camera.draw(black_hole)
+
+
+        # if uvage.is_pressing('r'):
+        #     reset_level1()
         camera.display()
+
+
+
+def reset_level1():
+    global game_over_status, question_status, level_1_status, last_chance_status, star_collectable_1, star_collectable_2, star_collectable_3, \
+        star_collectable_4, star_collectable_5
+
+    player.center = [640, 360]
+    camera.center = [640, 1000]
+    black_hole.center = [640, 1100]
+    game_over_status = False
+    # last_chance_status = False
+
+    # reset stars
+    # star_collectable_1.center = [500, -150]
+    # star_collectable_2.center = [400, -800]
+    # star_collectable_3.center = [1100, -1700]
+    # star_collectable_4.center = [700, -3750]
+    # star_collectable_5.center = [600, -6150]
+    level_1_status = True
+
+
+
 
 
 def score_counting():
     global score_number_2
     if level_1_status:
         score_number_2 += .016
+
+
 #
 def tick():
     home_screen()
@@ -697,10 +722,3 @@ def tick():
 
 
 uvage.timer_loop(60, tick)
-
-
-
-
-
-
-
