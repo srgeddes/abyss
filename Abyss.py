@@ -1,5 +1,3 @@
-import time
-
 import uvage
 import random
 
@@ -47,7 +45,6 @@ def home_screen():
         # TODO : Make black hole bounce around homescreen
         black_hole.rotate(5)
 
-        print(camera.x)
         # if black_hole.y == 200 or black_hole.y == 720:
         #     black_hole.yspeed *= -1
         # elif black_hole.x == camera.x + 200:
@@ -430,11 +427,13 @@ def black_hole_handler():
     camera.draw(black_hole)
     black_hole.rotate(5)
     if score_number <= 3:
-        black_hole.speedy = 1.8
+        black_hole.yspeed = 1.8
+        black_hole.xspeed = 0
     else:
         black_hole.speedy = .5
+        black_hole.xspeed = 0
     black_hole.move_speed()
-    if black_hole.touches(player):
+    if player.y + 200 >= black_hole.y >= player.y:
         level_1_status = False
         last_chance_status = True
         question_status = True
