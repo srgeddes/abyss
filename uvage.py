@@ -83,8 +83,12 @@ def _get_image(thing):
         if type(thing) is str:
             if os.path.exists(thing): return _image_from_file(thing)
             return _image_from_url(thing)
-    except:
-        exit("An error occured while fetching image, are you sure the file/website name is \"" + thing + "\"?")
+        pass
+    except Exception as e:
+        print(f"PATH IS MESSED UP: {thing}" )
+        sys.exit(1)
+
+
 
     _known_images[sid] = thing
     _known_images[(thing.get_width(), thing.get_height(), sid)] = thing
