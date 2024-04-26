@@ -12,6 +12,7 @@ last_chance_status = False
 
 # -------------------------------------------HOME SCREEN ASSETS--------------------------------------------------------#
 home_screen_count = 0
+black_hole_count = 0
 home_screen_background = uvage.from_image(5400, 360, 'assets/home_screen/big_stars.png')
 home_screen_title = uvage.from_image(0, 0, 'assets/home_screen/title.png')
 home_screen_start = uvage.from_image(0, 0, 'assets/home_screen/start.png')
@@ -22,11 +23,17 @@ home_screen_title.scale_by(.8)
 home_screen_start.scale_by(.3)
 home_screen_menu_star.scale_by(.3)
 
+random_x = random.randint(100, 1000)
+random_y = random.randint(100, 600)
+
 
 # -------------------------------------------HOME SCREEN FUNCTIONS-----------------------------------------------------#
+
+
 def home_screen():
-    global home_screen_status, home_screen_count, home_screen_menu_star
+    global home_screen_status, home_screen_count, home_screen_menu_star, black_hole_count
     home_screen_count += .4
+
     if home_screen_status:
         # Home Screen Assets adjustment
         home_screen_title.center = [640 + home_screen_count, 400]
@@ -37,11 +44,11 @@ def home_screen():
         for i in home_screen_assets:
             camera.draw(i)
 
-        black_hole.rotate(5)
 
-        if black_hole.y <= 150 or black_hole.y >= camera.height:
+        black_hole.rotate(5)
+        if black_hole.y <= 100 or black_hole.y >= camera.height:
             black_hole.yspeed *= -1
-        if black_hole.x <= 150 + home_screen_count or black_hole.x >= camera.width + home_screen_count:
+        if black_hole.x <= 100 + home_screen_count or black_hole.x >= camera.width + home_screen_count - 100:
             black_hole.xspeed *= -1
 
         black_hole.move_speed()
@@ -118,7 +125,7 @@ player = uvage.from_image(600, 500, player_images[-1])
 
 # Black Hole
 
-black_hole = uvage.from_image(500, 500, 'assets/level1/black_hole.png')
+black_hole = uvage.from_image(random_x, random_y, 'assets/level1/black_hole.png')
 black_hole.scale_by(.15)
 black_hole.yspeed = 3
 black_hole.xspeed = 3
