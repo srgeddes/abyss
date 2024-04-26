@@ -344,8 +344,8 @@ for question in questions_dict.values():
 star_collectable_1 = uvage.from_image(500, -150, 'assets/level1/star_collectable.png')
 star_collectable_2 = uvage.from_image(400, -800, 'assets/level1/star_collectable.png')
 star_collectable_3 = uvage.from_image(1100, -1700, 'assets/level1/star_collectable.png')
-star_collectable_4 = uvage.from_image(700, -3750, 'assets/level1/star_collectable.png')
-star_collectable_5 = uvage.from_image(600, -6150, 'assets/level1/star_collectable.png')
+star_collectable_4 = uvage.from_image(700, -3800, 'assets/level1/star_collectable.png')
+star_collectable_5 = uvage.from_image(600, -6200, 'assets/level1/star_collectable.png')
 
 star_collectable_list = [star_collectable_1, star_collectable_2, star_collectable_3, star_collectable_4,
                          star_collectable_5]
@@ -380,7 +380,6 @@ def question_handler():
         if uvage.is_pressing(answer.lower()):
             del questions_dict[question_key]
             black_hole.move(0, 500)
-            print("hello")
             question_status = False
             score_number += 1
             # black_hole.center = [camera.x, camera.y + 500]
@@ -390,16 +389,15 @@ def question_handler():
                 possible_answer_list[1]) or uvage.is_pressing(possible_answer_list[2])) and last_chance_status:
             question_status = False
             level_1_status = False
-            #black_hole.center = [640, 100]
-            black_hole.move(0, 500)
-            print("HI")
+            black_hole.center = [640, 100]
+            black_hole.yspeed = 3
+            black_hole.xspeed = 3
             question_screen_count = 0
             game_over_status = True
         elif (uvage.is_pressing(possible_answer_list[0]) or uvage.is_pressing(
                 possible_answer_list[1]) or uvage.is_pressing(possible_answer_list[2])) and (not last_chance_status):
             question_status = False
             black_hole.move(0, 500)
-            print("FUCK")
             # black_hole.center = [camera.x, camera.y + 500]
             last_chance_status = True
             question_screen_count = 0
@@ -658,7 +656,6 @@ lose_text = uvage.from_text(640, 600, 'YOU LOSE', 50, 'red', True)
 restart_text = uvage.from_text(640, 600, 'PRESS R TO RESTART', 50, 'red', True)
 
 
-
 def game_over():
     global win
     if game_over_status:
@@ -681,7 +678,7 @@ def game_over():
 
         #black_hole
         black_hole.rotate(5)
-        if black_hole.y <= 125 or black_hole.y >= camera.height - 125:
+        if black_hole.y <= 0 or black_hole.y >= camera.height - 125:
             black_hole.yspeed *= -1
         if black_hole.x <= 125 or black_hole.x >= camera.width - 125:
             black_hole.xspeed *= -1
@@ -713,9 +710,6 @@ def reset_level1():
     # star_collectable_4.center = [700, -3750]
     # star_collectable_5.center = [600, -6150]
     level_1_status = True
-
-
-
 
 
 def score_counting():
