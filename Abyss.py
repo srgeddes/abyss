@@ -4,10 +4,10 @@ import random
 camera = uvage.Camera(1280, 720, True)
 
 # -------------------------------------------STATUS--------------------------------------------------------------------#
-home_screen_status = False
+home_screen_status = True
 level_1_status = False
 question_status = False
-game_over_status = True
+game_over_status = False
 last_chance_status = False
 
 # -------------------------------------------HOME SCREEN ASSETS--------------------------------------------------------#
@@ -66,7 +66,7 @@ def home_screen_controller():
     if uvage.is_pressing("return"):
         home_screen_status = False
         camera.center = [640, 360]
-        black_hole.center = [640, 1100]
+        black_hole.center = [640, 1300]
         generate_questions()
         level_1_status = True
 
@@ -336,7 +336,7 @@ questions_dict["18"] = uvage.from_image(0, 0, 'assets/level1/questions/question_
 def generate_questions():
     global questions_dict
     # get 10 random
-    questions_dict = dict(random.sample(list(questions_dict.items()), 10))
+    questions_dict = dict(random.sample(list(questions_dict.items()), 13))
 
 for question in questions_dict.values():
     question.scale_by(.6)
@@ -379,23 +379,30 @@ def question_handler():
         possible_answer_list.pop(possible_answer_list.index(answer.lower()))
         if uvage.is_pressing(answer.lower()):
             del questions_dict[question_key]
-            black_hole.move(0, 1000)
+            black_hole.move(0, 500)
+            print("hello")
             question_status = False
             score_number += 1
-            black_hole.center = [camera.x, camera.y + 500]
+            # black_hole.center = [camera.x, camera.y + 500]
+            question_screen_count = 0
             level_1_status = True
         elif (uvage.is_pressing(possible_answer_list[0]) or uvage.is_pressing(
                 possible_answer_list[1]) or uvage.is_pressing(possible_answer_list[2])) and last_chance_status:
             question_status = False
             level_1_status = False
-            black_hole.center = [640, 100]
+            #black_hole.center = [640, 100]
+            black_hole.move(0, 500)
+            print("HI")
+            question_screen_count = 0
             game_over_status = True
         elif (uvage.is_pressing(possible_answer_list[0]) or uvage.is_pressing(
                 possible_answer_list[1]) or uvage.is_pressing(possible_answer_list[2])) and (not last_chance_status):
             question_status = False
             black_hole.move(0, 500)
-            black_hole.center = [camera.x, camera.y + 500]
+            print("FUCK")
+            # black_hole.center = [camera.x, camera.y + 500]
             last_chance_status = True
+            question_screen_count = 0
             level_1_status = True
 
 
@@ -415,10 +422,10 @@ def black_hole_handler():
     global level_1_status, last_chance_status, question_status
     camera.draw(black_hole)
     black_hole.rotate(5)
-    black_hole.yspeed = .3
+    black_hole.yspeed = .15
     black_hole.xspeed = 0
     black_hole.move_speed()
-    if player.y + 200 >= black_hole.y >= player.y:
+    if player.y + 100 >= black_hole.y >= player.y:
         level_1_status = False
         last_chance_status = True
         question_status = True
@@ -647,6 +654,7 @@ game_over_title = uvage.from_image(640, 360, 'assets/home_screen/title.png')
 game_over_title.scale_by(.8)
 game_over_barrier = uvage.from_color(640, 100, 'black', .01, .01)
 win_text = uvage.from_text(640, 600, 'YOU WON', 50, 'red', True)
+lose_text = uvage.from_text(640, 600, 'YOU LOSE', 50, 'red', True)
 restart_text = uvage.from_text(640, 600, 'PRESS R TO RESTART', 50, 'red', True)
 
 
@@ -665,7 +673,11 @@ def game_over():
         camera.draw(game_over_title)
         if win:
             camera.draw(win_text)
+        elif not win:
+            camera.draw(lose_text)
+
         # camera.draw(restart_text)
+
 
         #black_hole
         black_hole.rotate(5)
