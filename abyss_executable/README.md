@@ -9,7 +9,14 @@ Disclaimer
 
 I did not create UVAGE. 
 
+# General 
 
+Abyss is a game developed using UVAGE and pygame. The goal of the game is to reach the top and escape the black hole using 
+your spaceship to travel faster than the speed of light. Along the way you must collect all the stars and answer the questions
+correctly. If you are caught by the black hole and answer a question incorrectly you lose. If you answer two questions
+incorrectly you lose. 
+
+Here is a video of me explaining and demoing the game: https://www.youtube.com/watch?v=iCZzOkQ5Ndc
 
 # Keybindings  
 
