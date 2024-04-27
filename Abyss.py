@@ -343,7 +343,7 @@ questions_dict["18"] = uvage.from_image(0, 0, 'assets/level1/questions/question_
 def generate_questions():
     global questions_dict
     # get 10 random
-    questions_dict = dict(random.sample(list(questions_dict.items()), 13))
+    # questions_dict = dict(random.sample(list(questions_dict.items()), 13))
 
 for question in questions_dict.values():
     question.scale_by(.6)
@@ -658,8 +658,8 @@ game_over_background = uvage.from_image(620, 200, 'assets/home_screen/big_stars.
 game_over_title = uvage.from_image(640, 360, 'assets/home_screen/title.png')
 game_over_title.scale_by(.8)
 game_over_barrier = uvage.from_color(640, 100, 'black', .01, .01)
-win_text = uvage.from_text(640, 600, 'YOU WON', 50, 'red', True)
-lose_text = uvage.from_text(640, 600, 'YOU LOSE', 50, 'red', True)
+win_text = uvage.from_text(640, 600, 'YOU TRAVELED FASTER THAN THE SPEED OF LIGHT AND ESCAPED', 50, 'red', True)
+lose_text = uvage.from_text(640, 600, 'YOU WERE CAUGHT BY THE BLACK HOLE', 50, 'red', True)
 restart_text = uvage.from_text(640, 600, 'PRESS R TO RESTART', 50, 'red', True)
 
 

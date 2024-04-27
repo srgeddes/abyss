@@ -9,6 +9,14 @@ Disclaimer
 
 I did not create UVAGE. 
 
+# Keybindings  
+
+1. return = start  
+2. spacebar = jump 
+3. right / left arrow = move
+4. a/b/c/d = answer question
+
+
 
 # Mac Run Instructions 
 
