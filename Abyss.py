@@ -343,7 +343,7 @@ questions_dict["18"] = uvage.from_image(0, 0, 'assets/level1/questions/question_
 def generate_questions():
     global questions_dict
     # get 10 random
-    # questions_dict = dict(random.sample(list(questions_dict.items()), 13))
+    questions_dict = dict(random.sample(list(questions_dict.items()), 13))
 
 for question in questions_dict.values():
     question.scale_by(.6)
