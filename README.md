@@ -9,7 +9,14 @@ Disclaimer
 
 I did not create UVAGE. 
 
+# General 
 
+Abyss is a game developed using UVAGE and pygame. The goal of the game is to reach the top and escape the black hole using 
+your spaceship to travel faster than the speed of light. Along the way you must collect all the stars and answer the questions
+correctly. If you are caught by the black hole and answer a question incorrectly you lose. If you answer two questions
+incorrectly you lose. 
+
+Here is a video of me explaining and demoing the game: https://www.youtube.com/watch?v=iCZzOkQ5Ndc
 
 # Keybindings  
 
@@ -23,13 +30,10 @@ The executable must be run in the terminal with ./ due to that paths of the asse
 
 # Mac Run Instructions 
 
-1. Download Zip folder from Google Drive. This might take a second. 
-2. Double-click the Zip folder in Finder to turn it into a normal folder. 
-![Screenshot 2024-04-26 at 12.38.58 PM.png](..%2F..%2F..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fnc%2F__j_3wz522s38vx8lq0zm5vm0000gn%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_0heT5T%2FScreenshot%202024-04-26%20at%2012.38.58%E2%80%AFPM.png)
-3. Open the folder and find the file Abyss (not Abyss.py), right click on it and press open and open again
-4. Terminal might open or something else and the program will fail but this is a necessary step due to mac permissions from unknown downloaded files 
-5. Open a new Terminal. (command + spacebar and type "terminal" + return)
-6. run "cd ~/downloads/abyss_executable" assuming the file downloaded into your downloads folder 
-7. If it says "permission denied" try "cd ~/downloads" then "cd abyss_executable"
-8. Type "./Abyss" if it gives you "permission denied" run "chmod +x Abyss" and try "./Abyss" again
-9. The game should open
+1. Open the folder and find the file Abyss (not Abyss.py), RIGHT CLICK it and press open AND open again 
+2. Terminal might open or something else and the program will fail but this is a necessary step due to mac permissions from unknown downloaded files 
+3. Open a new Terminal. (command + spacebar and type "terminal" + return)
+4. Type "cd ~/downloads/abyss_executable" (without the quotes) and press 'return'. (Assuming the file downloaded into your downloads folder.)
+5. If it says "permission denied" try "cd ~/downloads" then "cd abyss_executable"
+6. Type "./Abyss" (without the quotes) and press return. If it gives you "permission denied", type "chmod +x Abyss" (without the qutoes) and press return. Do "./Abyss" again
+7. The game should open
