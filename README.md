@@ -9,6 +9,8 @@ Disclaimer
 
 I did not create UVAGE. 
 
+
+
 # Keybindings  
 
 1. return = start  
@@ -16,7 +18,8 @@ I did not create UVAGE.
 3. right / left arrow = move
 4. a/b/c/d = answer question
 
-
+# Executable
+The executable must be run in the terminal with ./ due to that paths of the assets
 
 # Mac Run Instructions 
 
