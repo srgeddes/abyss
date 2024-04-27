@@ -2,7 +2,12 @@
 
 
 Author 
-* Riley Geddes
+
+Riley Geddes
+
+Disclaimer
+
+I did not create UVAGE. 
 
 
 # Mac Run Instructions 
