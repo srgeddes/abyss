@@ -115,7 +115,7 @@ level_1_background9.size = [1280, 900]
 background.append(level_1_background9)
 
 player_images = uvage.load_sprite_sheet('assets/level1/spr_trooper_run_strip12_resized.png', rows=1, columns=12)
-
+##
 # Rocket
 rocket = uvage.from_image(600, -6350, "assets/level1/rocketship.png")
 rocket.size = [75, 100]
